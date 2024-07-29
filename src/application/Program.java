@@ -16,19 +16,17 @@ public class Program {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Scanner sc = new Scanner(System.in);
-		
-		
+
 		System.out.print("Numero do quarto: ");
 		int number = sc.nextInt();
 		System.out.print("Data do check-in (dd/MM/yyyy): ");
 		Date checkIn = sdf.parse(sc.next());
 		System.out.print("Data do check-out (dd/MM/yyyy): ");
 		Date checkOut = sdf.parse(sc.next());
-		
-		if(!checkOut.after(checkIn)) {
+
+		if (!checkOut.after(checkIn)) {
 			System.out.println("Error in reservation");
-		}
-		else {
+		} else {
 			Reservation reservation = new Reservation(number, checkIn, checkOut);
 			System.out.println(reservation);
 			System.out.println();
@@ -37,13 +35,21 @@ public class Program {
 			checkIn = sdf.parse(sc.next());
 			System.out.print("Data do check-out (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
-			
-			reservation.updateDates(checkIn, checkOut);
-			System.out.println(reservation);
+
+			String error = reservation.updateDates(checkIn, checkOut);
+			if (error != null) {
+				System.out.println("Error in reservartion: " + error);
+
+			} 
+			else {
+
+				System.out.println(reservation);
+			}
+
+			sc.close();
+
 		}
-		
-		sc.close();
-		
+
 	}
 
 }
